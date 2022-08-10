@@ -4,7 +4,8 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
-#include "TAD_SDQM_S.c"
+#include "TAD_SDQM_P.c"
+#include <omp.h>
 
 // Funcao de print para o usário
 void printUser(double** mat1, double** mat2, double** qmat1, double** qmat2, double** matd, int x, int y, double res){
@@ -104,7 +105,7 @@ int main(int argc, char *argv[]){
     if(Time_tk < 0)                                    // Corige o tempo
         Time_tk *= -1;
 
-    // Controle do usuario
+    // Controle da saida
     if(argc > 1){
         if(strcmp(argv[1], "-u") == 0){
             printUser(mat1, mat2, mat1q, mat2q, matD, x, y, R);
