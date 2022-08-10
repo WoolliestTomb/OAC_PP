@@ -107,8 +107,6 @@ int main(int argc, char *argv[]){
     if(Time_tk < 0)                                    // Corige o tempo
         Time_tk *= -1;
 
-    printf("%d", argc);
-
     if(argc > 1){
         if(strcmp(argv[1], "-u") == 0){
             printUser(mat1, mat2, mat1q, mat2q, matD, x, y, R);
@@ -118,10 +116,7 @@ int main(int argc, char *argv[]){
             printf("Tempo Levado = %lfs\n", Time_tk);
         }
     }
-
     
-
-
     return 0;
 
 }
