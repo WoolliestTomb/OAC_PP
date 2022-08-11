@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
     double** matD;                // Matriz da diferença
     double   R;                   // Resultado da soma da direnfeça
     int      rando;               // Variavel auxiliar para os numeros randomicos
-    clock_t  Temp;                // Variavle para ver o tempo de execucao
+    double  Temp;                 // Variavle para ver o tempo de execucao
 
     // Entrada de dados
     if(argc > 1 && strcmp(argv[1], "-u") == 0)
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
     scanf("%d %d", &x, &y);
 
     //Inicia o contador
-    Temp = clock();
+    Temp = omp_get_wtime();
 
     // Aloca a matriz e suas partes
     mat1 = matPart(mat1, x, y);
@@ -76,6 +76,7 @@ int main(int argc, char *argv[]){
     // Pepara a seed para os numeros serem gerados
     srand((unsigned)time(NULL));
 
+    // PP
     // Preenche as matrizes com valores aleatorios
     for(int i = 0; i < x; i++){
         for(int j = 0; j < y; j++){
@@ -100,10 +101,7 @@ int main(int argc, char *argv[]){
     R = somDiff(matD, x, y);
     
     // Pega o tempo de execucao
-    Temp = Temp - clock();                             // Pega a quantidade de tiks
-    double Time_tk = ((double)Temp)/CLOCKS_PER_SEC;    // Transforma a quantidade de ticks
-    if(Time_tk < 0)                                    // Corige o tempo
-        Time_tk *= -1;
+    double Time_tk = omp_get_wtime() - Temp;
 
     // Controle da saida
     if(argc > 1){
