@@ -1,17 +1,43 @@
+/* Olá Mundo não tão simples
+	exemplo 03b.c 
+      redução
+   compilação:
+      gcc -fopenmp 03b.c -o 03b.x 
+*/
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include "omp.h"
+#include <time.h>
 
-int main(int argc, char *argv[]){
+#define MAX 10
 
-    printf("Hello World\n");
+int main(){
+    int x, y;
+    int **vet1;
+    int **vet2;
+    int **vet3;
 
-    printf("%s\n", argv[1]);
+    scanf("%d %d", &x, &y);
 
-    if(strcmp(argv[1], "-p") == 0){
-        printf("foi");
+    #pragma omp prallel shred(vet1, vet2, vet3)
+    {
+        vet1 = (int**)malloc(sizeof(int)*x);
+        vet2 = (int**)malloc(sizeof(int)*x);
+        vet3 = (int**)malloc(sizeof(int)*x);
+
+        #pragma omp for
+        for(int i=0; i<x; i++){
+            vet1[i] = (int*)malloc(sizeof(int)*y);
+            vet2[i] = (int*)malloc(sizeof(int)*y);
+            vet3[i] = (int*)malloc(sizeof(int)*y);
+        }
+
+        #pragma omp for
+        for int 
+
     }
-    
+        
 
-    return 0;
+
+    
 }

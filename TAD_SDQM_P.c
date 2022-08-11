@@ -4,6 +4,7 @@
 #include <time.h>
 #include <math.h>
 #include "TAD.h"
+#include <omp.h>
 
 // Funcao de alocassao da matriz
 double** matPart(double** Mat, int rol, int col){
