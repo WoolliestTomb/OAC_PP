@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 //===========================================================================
 //----------------------------Funcoes de Alocacao----------------------------
 //===========================================================================
@@ -13,9 +14,9 @@ void printMat(double** Mat1, double** Mat2, int x, int y);                      
 //----------------------------Funcoes de Calculo----------------------------
 //==========================================================================
 
-double** calcQuad(double** Mat, int x, int y);                                  // Funcao para calcular o quadrado da matriz
-double** difCalc(double** Mat1, double** Mat2, double** MatR, int x, int y);    // Funcao para calcular a difernca das matrizes
-double somDiff(double** Mat, int x, int y);                                     // Funcao para realizar a soma da diferenca das matriz
+double** calcQuad(double** Mat, int x, int y, int t);                                  // Funcao para calcular o quadrado da matriz
+double** difCalc(double** Mat1, double** Mat2, double** MatR, int x, int y, int t);    // Funcao para calcular a difernca das matrizes
+double somDiff(double** Mat, int x, int y, int t);                                     // Funcao para realizar a soma da diferenca das matriz
 
 //==========================================================================
 //-----------------------------Funcoes de Print-----------------------------

@@ -52,18 +52,14 @@ void printUser(double** mat1, double** mat2, double** qmat1, double** qmat2, dou
 // Funcao Principal
 int main(int argc, char *argv[]){
     // Variaveis
-    int      x, y;                // Variaveis para a entrada do tamanho da matriz
-    double **mat1, **mat2;        // Matrizes dinamicamnete alocadas a serem calculdas
-    double **mat1q, **mat2q;      // Matriz com os valores dos quadrados
-    double** matD;                // Matriz da diferença
-    double   R;                   // Resultado da soma da direnfeça
-    int      rando;               // Variavel auxiliar para os numeros randomicos
-    double  Temp;                 // Variavle para ver o tempo de execucao
-
-    // Entrada de dados
-    if(argc > 1 && strcmp(argv[1], "-u") == 0)
-        printf("Digite o tamanho das matrizes (x y): ");
-    scanf("%d %d", &x, &y);
+    int      x=atoi(argv[1]), y=atoi(argv[2]);                // Variaveis para a entrada do tamanho da matriz
+    double **mat1, **mat2;                                    // Matrizes dinamicamnete alocadas a serem calculdas
+    double **mat1q, **mat2q;                                  // Matriz com os valores dos quadrados
+    double** matD;                                            // Matriz da diferença
+    double   R;                                               // Resultado da soma da direnfeça
+    int      rando;                                           // Variavel auxiliar para os numeros randomicos
+    double  Temp;                                             // Variavle para ver o tempo de execucao
+    int     Thred=atoi(argv[3]);                              // N° de threads a serem usadas
 
     //Inicia o contador
     Temp = omp_get_wtime();
@@ -78,40 +74,34 @@ int main(int argc, char *argv[]){
 
     // PP
     // Preenche as matrizes com valores aleatorios
+    unsigned int seed = time(NULL);
+    #pragma omp paralel shared(mat1, mat2, x, y, i) private(j) firstprivate(seed)
     for(int i = 0; i < x; i++){
         for(int j = 0; j < y; j++){
             // Preenche a matriz 1
-            rando = rand() % 10;
-            mat1[i][j] = (((double)rand()) / ((double)RAND_MAX)) * rando;
+            // rando = rand_r() % 10;
+            mat1[i][j] = ((double)(rand_r(&seed))) / (((double)RAND_MAX)) * (rand_r(&seed) % 10);
 
             // Preenche a matriz 2
-            rando = rand() % 10;
-            mat2[i][j] = (((double)rand()) / ((double)RAND_MAX)) * rando;
+            //rando = rand_r() % 10;
+            mat2[i][j] = ((double)(rand_r(&seed))) / (((double)RAND_MAX)) * (rand_r(&seed) % 10);
         }
     }
 
     // Calculo do quadrado das matrizes
-    mat1q = calcQuad(mat1, x, y);
-    mat2q = calcQuad(mat2, x, y);
+    mat1q = calcQuad(mat1, x, y, Thred);
+    mat2q = calcQuad(mat2, x, y, Thred);
 
     // Calculo da diferença das matrizes
-    matD = difCalc(mat1q, mat2q, matD, x, y);
+    matD = difCalc(mat1q, mat2q, matD, x, y, Thred);
 
     // Calculo da soma da diferenca
-    R = somDiff(matD, x, y);
-    
+    R = somDiff(matD, x, y, Thred);
+
     // Pega o tempo de execucao
     double Time_tk = omp_get_wtime() - Temp;
 
-    // Controle da saida
-    if(argc > 1){
-        if(strcmp(argv[1], "-u") == 0){
-            printUser(mat1, mat2, mat1q, mat2q, matD, x, y, R);
-            printf("Tempo Levado = %lfs\n", Time_tk);
-        }
-    }else{
-        printf("%lf\n", Time_tk);
-    }
+    printf("%lf\n", Time_tk);
     
     return 0;
 

@@ -48,7 +48,7 @@ void printMat(double** Mat1, double** Mat2, int x, int y){
 }
 
 // Funcao para calcular o quadrado da matriz
-double** calcQuad(double** Mat, int x, int y){
+double** calcQuad(double** Mat, int x, int y, int t){
     // Variaveis auxiliares
     double aux;
 
@@ -65,7 +65,7 @@ double** calcQuad(double** Mat, int x, int y){
 }
 
 // Funcao para calcular a difernca das matrizes
-double** difCalc(double** Mat1, double** Mat2, double** MatR, int x, int y){
+double** difCalc(double** Mat1, double** Mat2, double** MatR, int x, int y, int t){
     // Variaveis auxiliares
     double m1, m2;                  
 
@@ -82,7 +82,7 @@ double** difCalc(double** Mat1, double** Mat2, double** MatR, int x, int y){
 }
 
 // Funcao para realizar a soma da diferenca das matriz
-double somDiff(double** Mat, int x, int y){
+double somDiff(double** Mat, int x, int y, int t){
     // Variaveis
     double soma=0;               // Variavel de retorno
     double aux;                  // Variavel auxiliar

@@ -51,18 +51,13 @@ void printUser(double** mat1, double** mat2, double** qmat1, double** qmat2, dou
 // Funcao Principal
 int main(int argc, char *argv[]){
     // Variaveis
-    int      x, y;                // Variaveis para a entrada do tamanho da matriz
+    int      x=atoi(argv[1]), y=atoi(argv[2]);                // Variaveis para a entrada do tamanho da matriz
     double **mat1, **mat2;        // Matrizes dinamicamnete alocadas a serem calculdas
     double **mat1q, **mat2q;      // Matriz com os valores dos quadrados
     double** matD;                // Matriz da diferença
     double   R;                   // Resultado da soma da direnfeça
     int      rando;               // Variavel auxiliar para os numeros randomicos
     clock_t  Temp;                // Variavle para ver o tempo de execucao
-
-    // Entrada de dados
-    if(argc > 1 && strcmp(argv[1], "-u") == 0)
-        printf("Digite o tamanho das matrizes (x y): ");
-    scanf("%d %d", &x, &y);
 
     //Inicia o contador
     Temp = clock();
@@ -89,14 +84,14 @@ int main(int argc, char *argv[]){
     }
 
     // Calculo do quadrado das matrizes
-    mat1q = calcQuad(mat1, x, y);
-    mat2q = calcQuad(mat2, x, y);
+    mat1q = calcQuad(mat1, x, y, 1);
+    mat2q = calcQuad(mat2, x, y, 1);
 
     // Calculo da diferença das matrizes
-    matD = difCalc(mat1q, mat2q, matD, x, y);
+    matD = difCalc(mat1q, mat2q, matD, x, y, 1);
 
     // Calculo da soma da diferenca
-    R = somDiff(matD, x, y);
+    R = somDiff(matD, x, y, 1);
     
     // Pega o tempo de execucao
     Temp = Temp - clock();                             // Pega a quantidade de tiks
@@ -104,15 +99,7 @@ int main(int argc, char *argv[]){
     if(Time_tk < 0)                                    // Corige o tempo
         Time_tk *= -1;
 
-    // Controle do usuario
-    if(argc > 1){
-        if(strcmp(argv[1], "-u") == 0){
-            printUser(mat1, mat2, mat1q, mat2q, matD, x, y, R);
-            printf("Tempo Levado = %lfs\n", Time_tk);
-        }
-    }else{
-        printf("%lf\n", Time_tk);
-    }
+    printf("%lf\n", Time_tk);
     
     return 0;
 
